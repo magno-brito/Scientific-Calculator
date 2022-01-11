@@ -1,0 +1,8 @@
+#import <stdio.h>
+
+int main(){
+    int valor;
+    printf("Digite um valor:\n");
+    scanf("%d",valor);
+    printf("O valor digitado é: %d",valor);
+}
