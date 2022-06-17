@@ -29,7 +29,7 @@ class Calculator:
         self.expression = self.scr.get()
 
         
-        
+        #oj akd
 
     def equal(self):
         π = pi
