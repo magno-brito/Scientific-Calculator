@@ -1,6 +1,0 @@
-#import <stdio.h>
-
-int main(){
-    int variaval = 1;
-    printf("%d",variavel);
-}
