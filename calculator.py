@@ -8,89 +8,102 @@ from numpy import arcsin, column_stack
 
 class Calculator:
     def __init__(self):
-       self.window=  Tk()
-       self.window.title("Scientific Calculator")
-       self.window.geometry("582x343")
-       self.window.resizable(False, False)
-       self.value = StringVar()
-       self.expression = ""
-       self.result = ""
-       self.frame = Frame(self.window, 
+        self.window=  Tk()
+        self.window.title("Scientific Calculator")
+        self.window.geometry("582x343")
+        self.window.resizable(False, False)
+        self.value = StringVar()
+        self.expression = ""
+        self.result = ""
+
+
+        self.frame = Frame(self.window, 
                           borderwidth = 4, 
                           bg = '#216158', 
-    width=680, 
+                          width=680, 
                           height=580)
-       self.frame.grid(padx = 7, pady = 5);
-       self.frame1 = Frame(self.frame, 
+        self.frame.grid(padx = 7, pady = 5);
+        self.frame1 = Frame(self.frame, 
                            borderwidth = 4, 
                            bg = '#B5E5E6', 
                            width=10, 
                            height=10)
-       self.frame1.grid(column = 0, 
+        self.frame1.grid(column = 0, 
                         row = 1, 
                         columnspan=10, 
                         padx = 2, 
                         pady = 5);
-       self.scr = Entry(self.frame1,
+
+        
+        self.scr = Entry(self.frame1,
                         font="Helvetica 14", 
                         textvariable = self.value, 
                         bg = '#B5E5E6', 
-                        insertwidth = 5, 
+                        insertwidth = 5,
+                        insertbackground= '#B5E5E6',
                         width=47 )
-       self.scr.grid(column=6, 
+        
+        self.scr.grid(column=6, 
                     row=1, 
                     padx= 2, 
                     pady=2, 
                     ipady=5,
                     ipadx=10)
-    
-
-    def entry_values(self,value):
-        new_value = self.value.get()
-        self.value.set(new_value + value)
-        self.expression = self.scr.get()
-    
-    def equal(self):
-        new_expression = ''
-        if self.expression == "":
-            pass
-        else:
-            for i in str(self.expression):
-                if i == '√':
-                    new_expression += 'sqrt'
-                elif i == '²':
-                    new_expression += '**2'
-                elif i == '^':
-                    new_expression += '**'
-                elif i == '!':
-                    new = 'fatorial('
-                    for i in new_expression:
-                        new+=i
-                    new +=')'
-                    new_expression = new
-                elif i == 'C':
-                    new_expression += 'comb'
-                elif i == '%':
-                    new_expression += '/(100)*'
-                else:
-                     new_expression += i
-            self.expression = new_expression
-
-
-                
-        self.expression = new_expression
-        self.result = (round(eval(
-            self.expression, 
-            {'π':pi,'sqrt':sqrt,'ln':log, 'fatorial': self.fatorial, 'comb': comb}, 
-            globals()),16))
-        self.value.set(self.result)
-        self.expression = self.result
         
+
+    
+    def entry_values(self,value):
+            new_value = self.value.get()
+            self.value.set(new_value + value)
+            self.expression = self.scr.get()
+
+    def equal(self):
+        new_value = self.value.get()
+        self.value.set(new_value )
+        self.expression = self.scr.get()
+        new_expression = ''
+        try:
+            if self.expression == "":
+                pass
+            else:
+                for i in str(self.expression):
+                    if i == '√':
+                        new_expression += 'sqrt'
+                    elif i == '²':
+                        new_expression += '**2'
+                    elif i == '^':
+                        new_expression += '**'
+                    elif i == '!':
+                        new = 'fatorial('
+                        for i in new_expression:
+                            new+=i
+                        new +=')'
+                        new_expression = new
+                    elif i == 'C':
+                        new_expression += 'comb'
+                    elif i == '%':
+                        new_expression += '/(100)*'
+                    else:
+                        new_expression += i
+                self.expression = new_expression
+
+
+                    
+            self.expression = new_expression
+            self.result = (round(eval(
+                self.expression, 
+                {'π':pi,'sqrt':sqrt,'ln':log, 'fatorial': self.fatorial, 'comb': comb}, 
+                globals()),14))
+            self.value.set(self.result)
+            self.expression = self.result
+        except:
+            self.value.set("Error")
+            
     def clear(self):
         if self.expression == "":
             pass
         self.value.set("")
-
+            
     def delete(self):
         if self.expression == "":
             pass
@@ -129,6 +142,7 @@ width=6 )
                  row = 3, 
                  padx = 2, 
                  pady = 1.5)
+    
 
         two = Button(self.frame, 
                      text = '2', 
@@ -546,7 +560,7 @@ width=6)
         log2 = Button(self.frame, 
                       text = 'log2', 
                       bg = color3,  
-                      command = lambda: self.entry_values('log2'),
+                      command = lambda: self.entry_values('log2('),
                       font = ("Arial",14), 
                       width=6)
         log2.grid(column = 1, 
@@ -600,15 +614,14 @@ width=6)
                    padx = 2,
                    pady = 1.5)
     
-
     def gerar(self):
+        
         self.trigonometry_functions()
         self.basics_operation()
         self.expo_functions()
         self.numbers()
         self.fat()
-        self.window.mainloop()
-        
+        self.window.mainloop()     
 
 janela = Calculator()
 janela.gerar()
